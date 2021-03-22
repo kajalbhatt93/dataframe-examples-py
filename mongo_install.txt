@@ -6,6 +6,16 @@ sudo apt-get update
 sudo apt-get install -y mongodb-org
 sudo systemctl unmask mongodb
 
+# Make this remote MongoDB instance accessible to your local machine
+---------------------------------------
+cd ../..
+cd etc/
+sudo vi mongod.conf
+
+# change bindIp to the public dns name
+sudo service mongod restart
+
+
 # Create a mongo doc
 ---------------------------------------
 mongo
@@ -17,15 +27,6 @@ db.students.insert([{ "studentno":"3","firstname":"arun","lastname":"pal","schoo
 { "studentno":"4","firstname":"sachin","lastname":"tiwari","school":"dps"},
 { "studentno":"5","firstname":"rahul","lastname":"negi","school":"nps"}])
 db.students.find()
-
-# Make this remote MongoDB instance accessible to your local machine
----------------------------------------
-cd ../..
-cd etc/
-sudo vi mongod.conf
-
-# change bindIp to the public dns name
-sudo service mongod restart
 
 
 # Install a MongoDB client software in your local machine (Optional)
