@@ -23,6 +23,7 @@ db.students.find()
 cd ../..
 cd etc/
 sudo vi mongod.conf
+
 # change bindIp to the public dns name
 sudo service mongod restart
 
