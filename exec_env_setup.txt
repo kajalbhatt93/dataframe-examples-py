@@ -32,5 +32,5 @@ cd dataframe-examples-py
 export PYTHONPATH="$PWD"
 
 # Copy 2 files (private key and .secrets) from local to EMR cluster's master node,
-scp -i test.pem xyz.pem hadoop@<cluster_dns_name>:/home/hadoop/dataframe-examples-py/
-scp -i test.pem .secrets hadoop@<cluster_dns_name>:/home/hadoop/dataframe-examples-py/
+scp -i test.pem xyz.pem hadoop@ec2-34-255-87-157.eu-west-1.compute.amazonaws.com:/home/hadoop/dataframe-examples-py/
+scp -i test.pem .secrets hadoop@ec2-34-255-87-157.eu-west-1.compute.amazonaws.com:/home/hadoop/dataframe-examples-py/
