@@ -13,7 +13,6 @@ if __name__ == '__main__':
     spark = SparkSession \
         .builder \
         .appName("RDD examples") \
-        .master('local[*]') \
         .getOrCreate()
     spark.sparkContext.setLogLevel('ERROR')
 
