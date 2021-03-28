@@ -40,14 +40,20 @@ if __name__ == '__main__':
     txnDfNoColNames.printSchema()
     txnDfNoColNames.show(5, False)
 
+    print("\nConvert RDD to Dataframe using toDF(colNames: String*) - with column names,")
+    txnDfWithColName = txn_fct_rdd.toDF(
+        ["txn_id", "created_time_string", "amount", "cust_id", "status", "merchant_id", "created_time_ist"])
+    txnDfWithColName.printSchema()
+    txnDfWithColName.show(5, False)
+
     print("\nCreating Dataframe out of RDD without column names using createDataframe(),")
     txnDfNoColNames2 = spark.createDataFrame(txn_fct_rdd)
     txnDfNoColNames2.printSchema()
     txnDfNoColNames2.show(5, False)
 
-    print("\nConvert RDD to Dataframe using toDF(colNames: String*) - with column names,")
-    txnDfWithColName = txn_fct_rdd.toDF(["txn_id", "created_time_string", "amount", "cust_id", "status", "merchant_id", "created_time_ist"])
-    txnDfWithColName.printSchema()
-    txnDfWithColName.show(5, False)
+
 
 # spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" dataframe/ingestion/rdd/rdd2df_thru_schema_autoinfer.py
+# Above run the code locally.
+# spark-submit --master yarn --packages "org.apache.hadoop:hadoop-aws:2.7.4" dataframe/ingestion/rdd/rdd2df_thru_schema_autoinfer.py
+# Above run the code in yarn mode or in distributed mode.
