@@ -1,8 +1,16 @@
-import pyspark
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
 
-spark = SparkSession.builder.appName('SparkByExamples.com').getOrCreate()
+from pyspark.sql.functions import col
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import broadcast
+
+if __name__ == '__main__':
+    # Create the SparkSession
+    spark = SparkSession \
+        .builder \
+        .appName("DSL examples") \
+        .master('local[*]') \
+        .getOrCreate()
+    spark.sparkContext.setLogLevel('ERROR')
 
 emp = [(1, "Smith", -1, "2018", "10", "M", 3000),
        (2, "Rose", 1, "2010", "20", "M", 4000),
@@ -29,36 +37,36 @@ deptDF.show(truncate=False)
 
 empDF.join(deptDF, empDF.emp_dept_id == deptDF.dept_id, "inner") \
     .show(truncate=False)
-
+# ========================================================================
 empDF.join(deptDF, empDF.emp_dept_id == deptDF.dept_id, "outer") \
     .show(truncate=False)
 empDF.join(deptDF, empDF.emp_dept_id == deptDF.dept_id, "full") \
     .show(truncate=False)
 empDF.join(deptDF, empDF.emp_dept_id == deptDF.dept_id, "fullouter") \
     .show(truncate=False)
-
+# ========================================================================
 empDF.join(deptDF, empDF.emp_dept_id == deptDF.dept_id, "left") \
     .show(truncate=False)
 empDF.join(deptDF, empDF.emp_dept_id == deptDF.dept_id, "leftouter") \
     .show(truncate=False)
-
+# ========================================================================
 empDF.join(deptDF, empDF.emp_dept_id == deptDF.dept_id, "right") \
     .show(truncate=False)
 empDF.join(deptDF, empDF.emp_dept_id == deptDF.dept_id, "rightouter") \
     .show(truncate=False)
-
+# ========================================================================
 empDF.join(deptDF, empDF.emp_dept_id == deptDF.dept_id, "leftsemi") \
     .show(truncate=False)
-
+# ========================================================================
 empDF.join(deptDF, empDF.emp_dept_id == deptDF.dept_id, "leftanti") \
     .show(truncate=False)
-
+# ========================================================================
 empDF.alias("emp1").join(empDF.alias("emp2"),
                          col("emp1.superior_emp_id") == col("emp2.emp_id"), "inner") \
     .select(col("emp1.emp_id"), col("emp1.name"), col("emp2.emp_id").alias("superior_emp_id"),
             col("emp2.name").alias("superior_emp_name")) \
     .show(truncate=False)
-
+# ========================================================================
 empDF.createOrReplaceTempView("EMP")
 deptDF.createOrReplaceTempView("DEPT")
 
