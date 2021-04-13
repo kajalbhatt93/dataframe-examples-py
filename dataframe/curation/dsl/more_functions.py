@@ -29,18 +29,15 @@ if __name__ == '__main__':
     corrected_people_df = people_df\
         .withColumn("firstName", initcap("firstName"))\
         .withColumn("firstName", ltrim(initcap("firstName")))\
-        .withColumn("firstName", trim(initcap("firstName")))\
-
+        .withColumn("firstName", trim(initcap("firstName")))
     corrected_people_df.groupBy("firstName").agg(first("weightInLbs")).show()
 
     corrected_people_df = corrected_people_df\
-        .withColumn("fullName", format_string("%s %s", "firstName", "lastName"))\
-
+        .withColumn("fullName", format_string("%s %s", "firstName", "lastName"))
     corrected_people_df.show()
 
     corrected_people_df = corrected_people_df\
-        .withColumn("weightInLbs", coalesce("weightInLbs", lit(0)))\
-
+        .withColumn("weightInLbs", coalesce("weightInLbs", lit(0)))
     corrected_people_df.show()
 
     corrected_people_df\
